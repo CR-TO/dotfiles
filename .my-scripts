@@ -1,0 +1,25 @@
+# ----------------------
+# My scripts
+# ----------------------
+
+# Saves the current path to a file named '.path-test'
+function save_pwd() {
+     if [ -f ~/.path-test ]; then
+          rm ~/.path-test
+     fi
+     touch ~/.path-test
+     echo "$PWD" >> ~/.path-test
+}
+
+# CDs into the path specified in '.path-test'
+function open_pwd() {
+	if [ -f ~/.path-test ]; then
+		path_test=$(cat ~/.path-test)
+		cd $path_test
+	fi
+}
+
+# Overrides the original command so that CD also executes 'save_pwd'
+cd() {  builtin cd "$@" && save_pwd; }
+
+open_pwd

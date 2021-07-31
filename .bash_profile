@@ -1,10 +1,8 @@
+#!/bin/bash
 HOST_NAME=auvana
 
-nvm use stable
 shopt -s autocd
 shopt -s histappend
-
-export PATH=$PATH:$HOME/bin
 
 export HISTSIZE=5000
 export HISTFILESIZE=10000
@@ -17,7 +15,7 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 txtred='\e[0;31m' # Red
 txtgrn='\e[0;32m' # Green
-blue='\e[0;94m' # Blue
+blue='\e[0;94m'   # Blue
 bldgrn='\e[1;32m' # Bold Green
 bldpur='\e[1;35m' # Bold Purple
 txtrst='\e[0m'    # Text Reset
@@ -26,27 +24,24 @@ print_before_the_prompt () {
     dir=$PWD
     home=$HOME
     dir=${dir/"$HOME"/"~"}
-    printf "\n $txtred%s: $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt)"
+    printf "\n $txtred%s: $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir"
 }
 
 PROMPT_COMMAND=print_before_the_prompt
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-PS1=" >>> "
+PS1="  >>> "
 
-fortune | cowsay -f tux
+cowsay -f tux "I Love Animals"
 
 function mkcd()
 {
 	mkdir $1 && cd $1
 }
-
-function load() {
-	cd /media/tilen/dev/ && cd $1
-}
 # -------
 # Aliases
 # -------
-alias 🍺="git checkout -b drunk"
+alias open='explorer.exe'
+alias ���="git checkout -b drunk"
 alias a='code .'
 alias c='code .'
 alias reveal-md="reveal-md --theme night --highlight-theme hybrid --port 1337"
@@ -66,7 +61,7 @@ alias reload="clear && source ~/.bashrc"
 alias ga='git add'
 alias gaa='git add .'
 alias gaaa='git add -A'
-alias gc='git commit'
+alias gc='git clone'
 alias gcm='git commit -m'
 alias gd='git diff'
 alias gi='git init'
@@ -75,3 +70,5 @@ alias gp='git pull'
 alias gpsh='git push'
 alias gss='git status -s'
 alias gs='echo ""; echo "*********************************************"; echo -e "   DO NOT FORGET TO PULL BEFORE COMMITTING"; echo "*********************************************"; echo ""; git status'
+
+source ~/dev/bash/scripts/.my-scripts
