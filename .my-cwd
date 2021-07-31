@@ -1,5 +1,5 @@
 # ---------------------------------------
-# Import this file in your .bash_profile
+# Import this file to use it
 # ---------------------------------------
 
 # ---------------------------------------
@@ -7,23 +7,40 @@
 # ---------------------------------------
 
 # Saves the current path to a file named '.path-test'
-function save_pwd() {
+function save_cwd() {
      if [ -f ~/.path-test ]; then
           rm ~/.path-test
      fi
-     touch ~/.path-test
      echo "$PWD" >> ~/.path-test
 }
 
 # CDs into the path specified in '.path-test'
-function open_pwd() {
+function load_cwd() {
 	if [ -f ~/.path-test ]; then
 		path_test=$(cat ~/.path-test)
 		cd $path_test
 	fi
 }
 
-# Overrides the original command so that CD also executes 'save_pwd'
-cd() {  builtin cd "$@" && save_pwd; }
+# Prints the stored CWD
+function print_cwd() {
+	if [ -f ~/.path-test ]; then
+		path_test=$(cat ~/.path-test)
+		echo "CWD:" $path_test
+	fi
+}
 
-open_pwd
+# Clears the stored CWD
+# You need to put this in .bashrc so that 
+# it resets the stored CWD back to the root dir 
+function clear_cwd() {
+if [ -f ~/.path-test ]; then
+          rm ~/.path-test
+     fi
+     echo ~ >> ~/.path-test
+}
+
+# Overrides the original command so that CD also executes 'save_pwd'
+cd() {  builtin cd "$@" && save_cwd; }
+
+load_cwd
