@@ -6,26 +6,28 @@
 # My scripts
 # ---------------------------------------
 
+file_name=~/.my-cwd-path
+
 # Saves the current path to a file named '.path-test'
 function save_cwd() {
-     if [ -f ~/.path-test ]; then
-          rm ~/.path-test
+     if [ -f $file_name ]; then
+          rm $file_name
      fi
-     echo "$PWD" >> ~/.path-test
+     echo "$PWD" >> $file_name
 }
 
 # CDs into the path specified in '.path-test'
 function load_cwd() {
-	if [ -f ~/.path-test ]; then
-		path_test=$(cat ~/.path-test)
+	if [ -f $file_name ]; then
+		path_test=$(cat $file_name)
 		cd $path_test
 	fi
 }
 
 # Prints the stored CWD
 function print_cwd() {
-	if [ -f ~/.path-test ]; then
-		path_test=$(cat ~/.path-test)
+	if [ -f $file_name ]; then
+		path_test=$(cat $file_name)
 		echo "CWD:" $path_test
 	fi
 }
@@ -34,13 +36,13 @@ function print_cwd() {
 # You need to put this in .bashrc so that 
 # it resets the stored CWD back to the root dir 
 function clear_cwd() {
-if [ -f ~/.path-test ]; then
-          rm ~/.path-test
+if [ -f $file_name ]; then
+          rm $file_name
      fi
-     echo ~ >> ~/.path-test
+     echo ~ >> $file_name
 }
 
 # Overrides the original command so that CD also executes 'save_pwd'
 cd() {  builtin cd "$@" && save_cwd; }
 
-load_cwd
+exit() { builtin exit "$@" && clear_cwd; }
