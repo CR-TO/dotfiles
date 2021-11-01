@@ -24,7 +24,11 @@ print_before_the_prompt () {
     dir=$PWD
     home=$HOME
     dir=${dir/"$HOME"/"~"}
-    printf "\n $txtred%s: $bldpur%s <:$txtgrn%s$bldpur:> \n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt -f "%P ~> %b")"
+    
+    pregit=
+    git=""
+    if [ -d "./.git" ]; then git="<:$(vcprompt -f "%P ~> %b"):>"; fi
+    printf "\n $txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
 PROMPT_COMMAND=print_before_the_prompt
