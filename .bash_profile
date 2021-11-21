@@ -1,5 +1,8 @@
-#!/usr/bin/env bash
-HOST_NAME=auvana
+#!/usr/bin/env bash 
+
+source ~/.nvm/nvm.sh
+nvm use stable      
+HOST_NAME=auvana    
 
 shopt -s autocd
 shopt -s histappend
@@ -24,7 +27,7 @@ print_before_the_prompt () {
     dir=$PWD
     home=$HOME
     dir=${dir/"$HOME"/"~"}
-    
+
     pregit=
     git=""
     if [ -d "./.git" ]; then git="<-$(vcprompt -f "%P :: %b")->"; fi
@@ -41,13 +44,13 @@ cowsay -f tux "I Love Animals"
 
 function mkcd()
 {
-	mkdir $1 && cd $1
+        mkdir $1 && cd $1
 }
 
 # -------
 # Aliases
 # -------
-alias clear='clear&&cowsay -f tux "I Love Animals"'
+alias clear='clear&&nvm use stable&&cowsay -f tux "I Love Animals"'
 alias open='explorer.exe'
 alias ���="git checkout -b drunk"
 alias reveal-md="reveal-md --theme night --highlight-theme hybrid --port 1337"
@@ -59,7 +62,7 @@ alias nis='npm i -S'
 alias l="ls" # List files in current directory
 alias ll="ls -al" # List all files in current directory in long list format
 alias o="open ." # Open the current directory in Finder
-alias reload="clear && source ~/.bashrc"
+alias reload="clear && source ~/.bash_profile"
 
 # ----------------------
 # Git Aliases
