@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 HOST_NAME=auvana
 
 shopt -s autocd
@@ -27,13 +27,15 @@ print_before_the_prompt () {
     
     pregit=
     git=""
-    if [ -d "./.git" ]; then git="<:$(vcprompt -f "%P ~> %b"):>"; fi
+    if [ -d "./.git" ]; then git="<-$(vcprompt -f "%P :: %b")->"; fi
     printf "\n $txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
 PROMPT_COMMAND=print_before_the_prompt
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 PS1=" > "
+# Sets title of hyper terminal to be the current path
+PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
 
 cowsay -f tux "I Love Animals"
 
@@ -42,22 +44,10 @@ function mkcd()
 	mkdir $1 && cd $1
 }
 
-function minimizeCSS()
-{
-    in_file=$1
-    out_file=$(echo "$1" | grep -o -oP '^[^.]+(?=(\.css)?$)').min.css
-    
-    cat $in_file | sed -r ':a; s%(.*)/\*.*\*/%\1%; ta; /\/\*/ !b; N; ba' | tr -d '\t' | tr -d ' ' | tr -d '\n' | tr -s ' ' ' ' > $out_file
-}
-
-function resetpwd()
-{
-    rm ~/dev/pwd.txt;
-    echo ~ > ~/dev/pwd.txt
-}
 # -------
 # Aliases
 # -------
+alias clear='clear&&cowsay -f tux "I Love Animals"'
 alias open='explorer.exe'
 alias ���="git checkout -b drunk"
 alias reveal-md="reveal-md --theme night --highlight-theme hybrid --port 1337"
@@ -69,7 +59,7 @@ alias nis='npm i -S'
 alias l="ls" # List files in current directory
 alias ll="ls -al" # List all files in current directory in long list format
 alias o="open ." # Open the current directory in Finder
-alias reload="clear && source ~/.bash_profile"
+alias reload="clear && source ~/.bashrc"
 
 # ----------------------
 # Git Aliases
@@ -86,4 +76,3 @@ alias gp='git pull'
 alias gpsh='git push'
 alias gss='git status -s'
 alias gs='echo ""; echo "*********************************************"; echo -e "   DO NOT FORGET TO PULL BEFORE COMMITTING"; echo "*********************************************"; echo ""; git status'
-
