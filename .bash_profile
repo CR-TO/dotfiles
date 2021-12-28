@@ -1,8 +1,8 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 
 source ~/.nvm/nvm.sh
-nvm use stable      
-HOST_NAME=auvana    
+nvm use stable
+HOST_NAME=auvana
 
 shopt -s autocd
 shopt -s histappend
@@ -27,11 +27,13 @@ print_before_the_prompt () {
     dir=$PWD
     home=$HOME
     dir=${dir/"$HOME"/"~"}
-
+    
     pregit=
     git=""
-    if [ -d "./.git" ]; then git="<-$(vcprompt -f "%P :: %b")->"; fi
-    printf "\n $txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
+    unc=""
+    if [ "$(vcprompt -f "%m")" != "" ]; then unc=" ($(vcprompt -f "%m"))"; fi
+    if [ -d "./.git" ]; then git="<- $(vcprompt -f "%b")${unc} ->"; fi
+    printf "\n$txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
 PROMPT_COMMAND=print_before_the_prompt
@@ -44,13 +46,12 @@ cowsay -f tux "I Love Animals"
 
 function mkcd()
 {
-        mkdir $1 && cd $1
+	mkdir $1 && cd $1
 }
 
 # -------
 # Aliases
 # -------
-alias clear='clear&&nvm use stable&&cowsay -f tux "I Love Animals"'
 alias open='explorer.exe'
 alias ���="git checkout -b drunk"
 alias reveal-md="reveal-md --theme night --highlight-theme hybrid --port 1337"
