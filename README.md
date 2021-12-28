@@ -1,2 +1,2 @@
-# dot_files
+# dotfiles
 Just my dot files
