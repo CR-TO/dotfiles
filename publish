@@ -1,0 +1,53 @@
+#!/bin/bash
+lightPurple='\e[1;35m'
+lightRed='\e[1;31m'
+reset='\e[0m';
+
+clear
+
+# GET the correct path to the build/ directory inside project
+ROOT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )";
+BUILD_FOLDER_PATH="$ROOT_PATH/build";
+
+# check if build/ directory exists
+if [ ! -d $BUILD_FOLDER_PATH ]; then
+    echo "Error 404: build/ directory does not exist!";
+fi;
+
+cd $BUILD_FOLDER_PATH;
+
+# Check if is the v3 bracnh
+curBranch=`git rev-parse --abbrev-ref HEAD`;
+if [ $curBranch != 'v3' ]; then
+    printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Switching to branch: v3" ">";
+    git checkout v3;
+fi;
+
+printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Working on branch $curBranch" ">"
+
+./archiveChangelog
+
+printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Copying changelog to build" ">"
+cp "$ROOT_PATH/currentChangelog.md" "$BUILD_FOLDER_PATH/README.md";
+
+printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Pushing to GIT" ">"
+git add .
+
+git commit -m ":construction_worker: Production build v3"
+
+git push origin v3
+
+cd ..
+
+# Check if is the v3-webpack bracnh
+curBranch=`git rev-parse --abbrev-ref HEAD`;
+if [ $curBranch != '3.0-webpack' ]; then
+    printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Switching to branch: 3.0-webpack" ">";
+    git checkout v3;
+fi;
+
+git add .
+
+git commit -m ":construction_worker: After production build project push"
+
+git push origin 3.0-webpack
