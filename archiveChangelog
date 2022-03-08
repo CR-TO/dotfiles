@@ -4,6 +4,7 @@ lightRed='\e[1;31m'
 reset='\e[0m';
 
 ROOT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )";
+curDate="`date +%d%m%Y`";
 
 # Check if changlogs/ directory exists, if not create it
 if [ ! -d "$ROOT_PATH/changelogs" ]; then
@@ -11,6 +12,7 @@ if [ ! -d "$ROOT_PATH/changelogs" ]; then
     mkdir "$ROOT_PATH/changelogs"
 fi
 
+sed -i " 1 s/.*/&_$curDate/" "$ROOT_PATH/currentChangelog.md"
+
 printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Copying changelog to archive" ">"
-curDate="`date +%d%m%Y`";
 cp "$ROOT_PATH/currentChangelog.md" "$ROOT_PATH/changelogs/changelog-$curDate.md";
