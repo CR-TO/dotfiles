@@ -15,4 +15,12 @@ fi
 sed -i " 1 s/.*/&_$curDate/" "$ROOT_PATH/currentChangelog.md"
 
 printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Copying changelog to archive" ">"
-cp "$ROOT_PATH/currentChangelog.md" "$ROOT_PATH/changelogs/changelog-$curDate.md";
+if [ -f "$ROOT_PATH/changelogs/changelog-$curDate.md" ]; then 
+    printf "$lightPurple%s$reset $lightRed%s$reset $lightPurple%s$reset \n" "<" "Changelog changelog-$curDate already exists!!" ">"
+else
+    cp "$ROOT_PATH/currentChangelog.md" "$ROOT_PATH/changelogs/changelog-$curDate.md";
+fi
+
+> "$ROOT_PATH/currentChangelog.md"
+sed -i " 1 s/.*/&_$curDate/" "$ROOT_PATH/currentChangelog.md"
+printf "# Changelog\n\n- All changelogs are available at:  https://github.com/TilenOkretic/boat_configurator/tree/3.0-webpack/changelogs"  >> "$ROOT_PATH/currentChangelog.md"
