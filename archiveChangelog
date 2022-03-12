@@ -31,24 +31,31 @@ fi;
 
 # check if the currentChangelog file is already archived
 if [ -f "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md" ]; then 
-    terminal_log "Changelog changelog-$CUR_DATE already exists!!";
-else
-    terminal_log "Copying changelog to archive";
-
-    # append the current date to the title of the changelog file
-    sed -i " 1 s/.*/&_$CUR_DATE/" "$CURRENT_CHANGELOG_FILE";
-
-    # clears empty lines except the last one
-    remove_trailing_empty_lines;
-
-    # if there are no empty lines append one empty line to the end of file
-    if [ "`tail -c 1 $CURRENT_CHANGELOG_FILE`" != "" ]; then 
-        printf "\n" >> $CURRENT_CHANGELOG_FILE;
-    fi;
-
-    # append the link of all changelogs to the changelog file
-    printf "\n- All changelogs are available at:  https://github.com/TilenOkretic/boat_configurator/tree/3.0-webpack/changelogs" >> "$CURRENT_CHANGELOG_FILE";
-    
-    # copy the changelog file to the archive
-    cp "$CURRENT_CHANGELOG_FILE" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
+    terminal_log "Cleaning changelog-$CUR_DATE ";
+    > "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
 fi
+
+terminal_log "Copying changelog to archive";
+
+# clears empty lines except the last one
+remove_trailing_empty_lines;
+
+# if there are no empty lines append one empty line to the end of file
+if [ "`tail -c 1 $CURRENT_CHANGELOG_FILE`" != "" ]; then 
+    printf "\n" >> $CURRENT_CHANGELOG_FILE;
+fi;
+
+if [ "`head currentChangelog.md -n 1`" == "# Changelog" ]; then 
+    sed -i " 1 s/.*/&_$CUR_DATE/" $CURRENT_CHANGELOG_FILE;
+fi;
+
+# copy the changelog file to the archive
+cp "$CURRENT_CHANGELOG_FILE" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
+
+# append the current date to the title of the changelog file
+if [ "`head $ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md -n 1`" == "# Changelog" ]; then 
+    sed -i " 1 s/.*/&_$CUR_DATE/" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
+fi;
+
+# > $CURRENT_CHANGELOG_FILE;
+# printf "# Changelog_$CUR_DATE\n\n- All changelogs are available at:  https://github.com/TilenOkretic/boat_configurator/tree/3.0-webpack/changelogs" >> "$CURRENT_CHANGELOG_FILE";
