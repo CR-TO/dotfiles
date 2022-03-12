@@ -51,10 +51,4 @@ else
     
     # copy the changelog file to the archive
     cp "$CURRENT_CHANGELOG_FILE" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
-    
-    # clear the currentChangelog file
-    > "$CURRENT_CHANGELOG_FILE";
-    
-    # append a base title to the currentChangelog file
-    printf "# Changelog" >> "$CURRENT_CHANGELOG_FILE";
 fi
