@@ -28,7 +28,6 @@ if [ ! -d "$ARCHIVE_DIRECTORY" ]; then
     mkdir "$ARCHIVE_DIRECTORY";
 fi;
 
-
 # check if the currentChangelog file is already archived
 if [ -f "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md" ]; then 
     terminal_log "Cleaning changelog-$CUR_DATE ";
