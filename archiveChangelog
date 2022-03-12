@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear
+
 # ANSI color variables
 lightPurple='\e[1;35m';
 lightRed='\e[1;31m';
@@ -28,6 +30,7 @@ if [ ! -d "$ARCHIVE_DIRECTORY" ]; then
     mkdir "$ARCHIVE_DIRECTORY";
 fi;
 
+
 # check if the currentChangelog file is already archived
 if [ -f "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md" ]; then 
     terminal_log "Cleaning changelog-$CUR_DATE ";
@@ -55,6 +58,3 @@ cp "$CURRENT_CHANGELOG_FILE" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
 if [ "`head $ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md -n 1`" == "# Changelog" ]; then 
     sed -i " 1 s/.*/&_$CUR_DATE/" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
 fi;
-
-# > $CURRENT_CHANGELOG_FILE;
-# printf "# Changelog_$CUR_DATE\n\n- All changelogs are available at:  https://github.com/TilenOkretic/boat_configurator/tree/3.0-webpack/changelogs" >> "$CURRENT_CHANGELOG_FILE";
