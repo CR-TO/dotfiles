@@ -1,21 +1,34 @@
 {
+    "plugins": ["unused-imports"],
     "env": {
         "browser": true,
+        "node": true,
+        "es2020": true,
         "es6": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
         "camelcase": 1,
         "quotes": [2, "single", { "avoidEscape": true }],
-        "no-unused-vars": 0,
-        "no-undef": 0,
+        "no-unused-vars": ["error", "always"],
+        "no-undef": ["error", "always"],
         "no-underscore-dangle": 0,
         "indent": ["error", 4, { "FunctionExpression": {"body": 1, "parameters": 2}, "ignoredNodes": ["SwitchCase", "FunctionExpression"] }],
         "semi": ["error", "always"],
         "eol-last": ["error", "always"],
-        "comma-spacing": ["error", { "before": false, "after": true }]
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "require-await": "error",
+        "unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{ "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+		]
     }
 }
