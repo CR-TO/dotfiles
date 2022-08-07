@@ -1,0 +1,60 @@
+#!/bin/bash
+
+clear
+
+# ANSI color variables
+lightPurple='\e[1;35m';
+lightRed='\e[1;31m';
+colorReset='\e[0m';
+
+ROOT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )";
+ARCHIVE_DIRECTORY="$ROOT_PATH/changelogs_archive";
+CURRENT_CHANGELOG_FILE="$ROOT_PATH/currentChangelog.md";
+STANDARD_LOG_REGEX="$lightPurple%s$colorReset $lightRed%s$colorReset $lightPurple%s$colorReset \n";
+
+CUR_DATE="`date +%d%m%Y`";
+
+terminal_log() {
+    printf "$STANDARD_LOG_REGEX" "<~" "$1" "~>";
+}
+
+remove_trailing_empty_lines() {
+    while [ "`tail -n 1 $CURRENT_CHANGELOG_FILE`" == "" ]; do
+        sed -i "$ d" $CURRENT_CHANGELOG_FILE
+    done
+}
+
+# Check if archive directory exists, if not create it
+if [ ! -d "$ARCHIVE_DIRECTORY" ]; then
+    terminal_log "Creating changelogs directory";
+    mkdir "$ARCHIVE_DIRECTORY";
+fi;
+
+
+# check if the currentChangelog file is already archived
+if [ -f "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md" ]; then 
+    terminal_log "Cleaning changelog-$CUR_DATE ";
+    > "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
+fi
+
+terminal_log "Copying changelog to archive";
+
+# clears empty lines except the last one
+remove_trailing_empty_lines;
+
+# if there are no empty lines append one empty line to the end of file
+if [ "`tail -c 1 $CURRENT_CHANGELOG_FILE`" != "" ]; then 
+    printf "\n" >> $CURRENT_CHANGELOG_FILE;
+fi;
+
+if [ "`head currentChangelog.md -n 1`" == "# Changelog" ]; then 
+    sed -i " 1 s/.*/&_$CUR_DATE/" $CURRENT_CHANGELOG_FILE;
+fi;
+
+# copy the changelog file to the archive
+cp "$CURRENT_CHANGELOG_FILE" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
+
+# append the current date to the title of the changelog file
+if [ "`head $ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md -n 1`" == "# Changelog" ]; then 
+    sed -i " 1 s/.*/&_$CUR_DATE/" "$ARCHIVE_DIRECTORY/changelog-$CUR_DATE.md";
+fi;

@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-source ~/.nvm/nvm.sh
-nvm use stable
 HOST_NAME=auvana
 
+source ~/.nvm/nvm.sh
+nvm use stable
 shopt -s autocd
 shopt -s histappend
+
+export PATH=$PATH:$HOME/bin
 
 export HISTSIZE=5000
 export HISTFILESIZE=10000
@@ -20,7 +22,7 @@ txtred='\e[0;31m' # Red
 txtgrn='\e[0;32m' # Green
 blue='\e[0;94m'   # Blue
 bldgrn='\e[1;32m' # Bold Green
-bldpur='\e[1;35m' # Bold Purple
+bldpur='\e[1;36m' # Bold Purple
 txtrst='\e[0m'    # Text Reset
 
 print_before_the_prompt () {
@@ -36,13 +38,17 @@ print_before_the_prompt () {
     printf "\n$txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
+_emojis=("🌵" "🌳" "💞" "💾" "🤘")
+EMOJI=${_emojis[ $RANDOM % ${#_emojis[@]} ]}
+
 PROMPT_COMMAND=print_before_the_prompt
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-PS1=" > "
+PS1="$EMOJI >"
+
 # Sets title of hyper terminal to be the current path
 PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
 
-cowsay -f tux "I Love Animals"
+fortune | cowsay -f tux
 
 function mkcd()
 {
@@ -80,3 +86,5 @@ alias gp='git pull'
 alias gpsh='git push'
 alias gss='git status -s'
 alias gs='echo ""; echo "*********************************************"; echo -e "   DO NOT FORGET TO PULL BEFORE COMMITTING"; echo "*********************************************"; echo ""; git status'
+
+PROMPT_COMMAND=${PROMPT_COMMAND:+"$PROMPT_COMMAND; "}'printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"'
