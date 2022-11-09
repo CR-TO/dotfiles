@@ -20,10 +20,7 @@ Just my dot files
 * Quokka.js
    * Evaluate code/logs inline and show results in the editor
 
-
-
-
-
+---
 
 * install using the command: 
 ```
