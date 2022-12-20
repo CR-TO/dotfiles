@@ -16,10 +16,11 @@ bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
 export CLICOLOR=1
-export LSCOLORS=GxFxCxDxBxegedabagaced
+# export LSCOLORS=GxFxCxDxBxegedabagaced
+export LSCOLORS=gxfxcxdxbxegedabagacad
 
 txtred='\e[0;31m' # Red
-txtgrn='\e[0;32m' # Green
+txtgrn='\e[1;32m' # Green
 blue='\e[0;94m'   # Blue
 bldgrn='\e[1;32m' # Bold Green
 bldpur='\e[1;36m' # Bold Purple
@@ -33,8 +34,8 @@ print_before_the_prompt () {
     pregit=
     git=""
     unc=""
-    if [ "$(vcprompt -f "%m")" != "" ]; then unc=" ($(vcprompt -f "%m"))"; fi
-    if [ -d "./.git" ]; then git="<- $(vcprompt -f "%b")${unc} ->"; fi
+    if [ "$(vcprompt -f "%m")" != "" ]; then unc="($(vcprompt -f "%m"))"; fi
+    if [ -d "./.git" ]; then git="[git:$(vcprompt -f "%b")${unc}]"; fi
     printf "\n$txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
@@ -43,7 +44,7 @@ EMOJI=${_emojis[ $RANDOM % ${#_emojis[@]} ]}
 
 PROMPT_COMMAND=print_before_the_prompt
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-PS1="$EMOJI >"
+PS1="$EMOJI> "
 
 # Sets title of hyper terminal to be the current path
 PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
