@@ -35,7 +35,7 @@ print_before_the_prompt () {
     git=""
     unc=""
     if [ "$(vcprompt -f "%m")" != "" ]; then unc="($(vcprompt -f "%m"))"; fi
-    if [ -d "./.git" ]; then git="[git:$(vcprompt -f "%b")${unc}]"; fi
+    if [ "$(vcprompt -f "%b")" != "" ]; then git="[git:$(vcprompt -f "%b")${unc}]"; fi
     printf "\n$txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
