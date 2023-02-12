@@ -36,7 +36,7 @@ print_before_the_prompt () {
     unc=""
     if [ "$(vcprompt -f "%m")" != "" ]; then unc="($(vcprompt -f "%m"))"; fi
     if [ "$(vcprompt -f "%b")" != "" ]; then git="[git:$(vcprompt -f "%b")${unc}]"; fi
-    printf "\n$txtred%s: $bldpur%s $txtgrn%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
+    printf "\n$txtred%s: $bldpur%s $txtrst%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
 _emojis=("🌵" "🌳" "💞" "💾" "🤘")
@@ -71,6 +71,7 @@ alias l="ls" # List files in current directory
 alias ll="ls -al" # List all files in current directory in long list format
 alias o="open ." # Open the current directory in Finder
 alias reload="clear && source ~/.bash_profile"
+
 
 # ----------------------
 # Git Aliases
