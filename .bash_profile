@@ -39,12 +39,12 @@ print_before_the_prompt () {
     printf "\n$txtred%s: $bldpur%s $txtrst%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
-_emojis=("🌵" "🌳" "💞" "💾" "🤘")
+_emojis=("⩥" "⫸" "›" "▶" "→" "▷")
 EMOJI=${_emojis[ $RANDOM % ${#_emojis[@]} ]}
 
 PROMPT_COMMAND=print_before_the_prompt
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-PS1="$EMOJI> "
+PS1=" $EMOJI "
 
 # Sets title of hyper terminal to be the current path
 PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
