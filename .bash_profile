@@ -2,6 +2,11 @@
 
 HOST_NAME=auvana
 
+if [[ -f ~/.bashrc ]]; then
+    echo "Sourcing ~/.bashrc"
+    source ~/.bashrc
+fi
+
 source ~/.nvm/nvm.sh
 nvm use stable
 shopt -s autocd
@@ -39,7 +44,7 @@ print_before_the_prompt () {
     printf "\n$txtred%s: $bldpur%s $txtrst%s \n$txtrst" "$HOST_NAME" "$dir" "$git"
 }
 
-_emojis=("⩥" "⫸" "›" "▶" "→" "▷")
+_emojis=("›" "▶" "→" "▷")
 EMOJI=${_emojis[ $RANDOM % ${#_emojis[@]} ]}
 
 PROMPT_COMMAND=print_before_the_prompt
