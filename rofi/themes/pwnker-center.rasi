@@ -1,0 +1,71 @@
+
+
+* {
+    bg: #212121;
+    bg-alt:     #182222;
+
+    fg:     #aaffdd;
+    fg-alt: #5099ae;
+
+    background-color: @bg;
+
+    border:  0;
+    margin:  0;
+    padding: 0;
+    spacing: 0;
+}
+
+window {
+    width: 50%;
+    border-radius: 32;
+}
+
+element {
+    padding: 20;
+    text-color: @fg-alt;
+}
+
+element selected {
+    text-color: @fg;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element-icon {
+    size: 75;
+    padding: 12;
+}
+
+entry {
+    background-color: @bg-alt;
+    padding: 32;
+    text-color: @fg;
+    placeholder: "Run App";
+    placeholder-color: #ffffff10;
+}
+
+inputbar {
+    children: [prompt, entry];
+}
+
+listview {
+    background-color: @bg;
+    columnes: 1;
+    lines: 8;
+}
+
+mainbox {
+    background-color: @bg;
+    children: [inputbar,listview];
+}
+
+prompt {
+    background-color: @bg-alt;
+    enabled: false;
+    padding: 12 0 0 12;
+    text-color: @fg;
+}

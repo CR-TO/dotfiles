@@ -1,0 +1,38 @@
+* {
+    font: "iosevka term ss02 semibold 44";
+   
+    background-color: #000000aa;
+    text-color: #00ffca;
+    spacing: 2;
+    height: 1080px;
+}
+
+inputbar {
+    background-color: #212121; 
+}
+
+prompt {
+    padding: 32px;
+    background-color: #212121;
+}
+
+entry {
+    padding: 16px;
+    placeholder: "Type here";
+    placeholder-color: #ffffff33;
+    vertical-align: 0.5;
+    background-color: #212121;
+}
+
+listview {
+    cycle: false;
+    scrollbar: false;
+}
+
+element-text {
+    padding: 8px;
+}
+
+element-text selected {
+    background-color: #515151aa;
+}

@@ -1,0 +1,11 @@
+configuration {
+    display-drun: "Applications:";
+    drun-display-format: "{icon} {name}";
+    font: "iosevka term ss02 semibold 48";
+    display-window: "Windows:";
+    modi: "window,run,drun";
+    show-icons: true;
+    icon-theme: "Papirus";
+}
+
+@theme "~/.config/rofi/themes/pwnker-center"
