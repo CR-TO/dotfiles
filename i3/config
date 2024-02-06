@@ -42,10 +42,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Custom Worspaces configuration
-set $fm eDP
-set $sm DisplayPort-6 
-set $tm DisplayPort-5 
-include $HOME/.config/i3/workspaces.conf
+#set $fm eDP
+#set $sm DisplayPort-6 
+#set $tm DisplayPort-5 
+#include $HOME/.config/i3/workspaces.conf
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -214,15 +214,17 @@ bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-exec_always feh --bg-scale ~/Pictures/wallpapers/neon_island.jpg
 
 # removes the border around windows 
 for_window [class="^.*"] border pixel 0
 
-# Commands to execute at start of every session
-exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
-exec_always picom
-exec_always ~/.config/polybar/launch.sh
 exec --no-startup-id /usr/lib/gsd-xsettings
+
+# Commands to execute at start of every session
+exec_always feh --bg-scale ~/Pictures/wallpapers/cyberpunk_wallpaper.jpg
+exec_always ~/.config/polybar/launch.sh
+exec_always --no-startup-id setxkbmap -option ctrl:swapcaps
+exec_always picom
 exec_always xrdb ~/.Xresources 
-exec_always setxkbmap -option ctrl:swapcaps
+exec_always --no-startup-id ~/dev/external/i3-battery-popup/i3-battery-popup -L 10 -N -f "pango:monospace 16"
+exec_always --no-startup-id bash ~/dev/dotfiles/scripts/screenkey.sh

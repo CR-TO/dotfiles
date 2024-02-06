@@ -147,11 +147,13 @@ function mkcd() {
 	mkdir $1 && cd $1;
 }
 
+alias vi=nvim
+
 alias cal="if [ -t 1 ] ; then ncal -b ; else /usr/bin/cal ; fi"
 
 setxkbmap -option ctrl:swapcaps
 
-PATH="$PATH":"$HOME/.local/scripts/"
+PATH="$PATH":"$HOME/.local/scripts/":"$HOME/dev/external/i3-battery-popup/"
 
 # pnpm
 export PNPM_HOME="/home/tilc/.local/share/pnpm"
