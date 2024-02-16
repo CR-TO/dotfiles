@@ -42,10 +42,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Custom Worspaces configuration
-#set $fm eDP
-#set $sm DisplayPort-6 
-#set $tm DisplayPort-5 
-#include $HOME/.config/i3/workspaces.conf
+set $fm eDP
+set $sm DisplayPort-5 
+set $tm DisplayPort-6 
+include $HOME/.config/i3/workspaces.conf
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -221,7 +221,7 @@ for_window [class="^.*"] border pixel 0
 exec --no-startup-id /usr/lib/gsd-xsettings
 
 # Commands to execute at start of every session
-exec_always feh --bg-scale ~/Pictures/wallpapers/cyberpunk_wallpaper.jpg
+exec_always feh --bg-scale ~/Pictures/wallpapers/sexy_lady.jpg
 exec_always ~/.config/polybar/launch.sh
 exec_always --no-startup-id setxkbmap -option ctrl:swapcaps
 exec_always picom

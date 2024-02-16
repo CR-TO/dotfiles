@@ -125,6 +125,7 @@ source "$OSH"/oh-my-bash.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -166,7 +167,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-nvm use stable
+# Uncomment the line below to enable node version manager (nvm)
+#nvm use stable
 printf "
 (O _ o)
   \_  \_\n"
